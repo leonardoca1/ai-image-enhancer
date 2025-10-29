@@ -1,0 +1,5 @@
+{
+  "name": "AI Image Enhancer",
+  "description": "An application that uses AI to improve and upscale the quality of images by factors of 2x, 5x, or 10x, providing a clear before-and-after comparison.",
+  "requestFramePermissions": []
+}
