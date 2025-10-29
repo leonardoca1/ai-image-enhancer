@@ -4,6 +4,7 @@ import { enhanceImage } from './services/geminiService';
 import ImageUploader from './components/ImageUploader';
 import EnhancementControls from './components/EnhancementControls';
 import ImageComparator from './components/ImageComparator';
+import PasswordProtection from './components/PasswordProtection';
 
 type ImageDimensions = { width: number; height: number } | null;
 
@@ -160,82 +161,84 @@ const App: React.FC = () => {
   }, [handleImageUpload]);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white font-sans">
-      <div className="container mx-auto px-4 py-8 md:py-12">
-        <header className="text-center mb-10 md:mb-16" style={{ overflow: 'visible' }}>
-            <h1 className="font-bold tracking-tight text-blue-400" style={{ 
-                fontSize: '4rem',
-                lineHeight: '1.3', 
-                paddingTop: '1.5rem',
-                paddingBottom: '0.5rem',
-                textShadow: '0 0 30px rgba(147, 51, 234, 0.5)',
-                overflow: 'visible',
-                display: 'block',
-                fontFamily: 'system-ui, -apple-system, sans-serif'
-            }}>
-                AI Image Enhancer
-            </h1>
-            <p className="mt-1 text-lg text-gray-400 max-w-2xl mx-auto">
-                Upload your image, choose an enhancement factor, and let AI work its magic to upscale and improve quality.
-            </p>
-        </header>
+    <PasswordProtection>
+      <div className="min-h-screen bg-gray-900 text-white font-sans">
+        <div className="container mx-auto px-4 py-8 md:py-12">
+          <header className="text-center mb-10 md:mb-16" style={{ overflow: 'visible' }}>
+              <h1 className="font-bold tracking-tight text-blue-400" style={{ 
+                  fontSize: '4rem',
+                  lineHeight: '1.3', 
+                  paddingTop: '1.5rem',
+                  paddingBottom: '0.5rem',
+                  textShadow: '0 0 30px rgba(147, 51, 234, 0.5)',
+                  overflow: 'visible',
+                  display: 'block',
+                  fontFamily: 'system-ui, -apple-system, sans-serif'
+              }}>
+                  AI Image Enhancer
+              </h1>
+              <p className="mt-1 text-lg text-gray-400 max-w-2xl mx-auto">
+                  Upload your image, choose an enhancement factor, and let AI work its magic to upscale and improve quality.
+              </p>
+          </header>
 
-        <main className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-            <div className="md:col-span-1 flex flex-col items-center space-y-8">
-                <div className="w-full bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700 shadow-2xl">
-                    <EnhancementControls
-                        factor={enhancementFactor}
-                        setFactor={setEnhancementFactor}
-                        onEnhance={handleEnhance}
-                        isEnhancing={isLoading}
-                        isImageUploaded={!!originalImage}
-                    />
-                </div>
-            </div>
+          <main className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+              <div className="md:col-span-1 flex flex-col items-center space-y-8">
+                  <div className="w-full bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700 shadow-2xl">
+                      <EnhancementControls
+                          factor={enhancementFactor}
+                          setFactor={setEnhancementFactor}
+                          onEnhance={handleEnhance}
+                          isEnhancing={isLoading}
+                          isImageUploaded={!!originalImage}
+                      />
+                  </div>
+              </div>
 
-            <div className="md:col-span-2 flex flex-col space-y-8">
-                {error && (
-                    <div className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg" role="alert">
-                        <strong className="font-bold">Error: </strong>
-                        <span className="block sm:inline">{error}</span>
-                    </div>
-                )}
-                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div className="bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700 shadow-2xl">
-                         <ImageUploader 
-                            onImageUpload={handleImageUpload} 
-                            originalImageUrl={originalImageUrl} 
-                            dimensions={originalImageDimensions}
-                         />
-                    </div>
-                    <div className="bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700 shadow-2xl min-h-[368px] flex flex-col items-center justify-center">
-                        {isLoading && (
-                            <div className="text-center">
-                                <div className="animate-pulse text-blue-400 text-lg">Enhancing Image...</div>
-                                <p className="text-gray-500 text-sm mt-2">This may take a moment.</p>
-                            </div>
-                        )}
-                        {!isLoading && enhancedImageUrl && (
-                            <ImageComparator 
-                                enhancedImageUrl={enhancedImageUrl}
-                                dimensions={enhancedImageDimensions} 
-                            />
-                        )}
-                        {!isLoading && !enhancedImageUrl && (
-                            <div className="text-center text-gray-500">
-                                <p>Your enhanced image will appear here.</p>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            </div>
-        </main>
+              <div className="md:col-span-2 flex flex-col space-y-8">
+                  {error && (
+                      <div className="bg-red-500/20 border border-red-500 text-red-300 px-4 py-3 rounded-lg" role="alert">
+                          <strong className="font-bold">Error: </strong>
+                          <span className="block sm:inline">{error}</span>
+                      </div>
+                  )}
+                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                      <div className="bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700 shadow-2xl">
+                           <ImageUploader 
+                              onImageUpload={handleImageUpload} 
+                              originalImageUrl={originalImageUrl} 
+                              dimensions={originalImageDimensions}
+                           />
+                      </div>
+                      <div className="bg-gray-800/30 backdrop-blur-sm p-6 rounded-2xl border border-gray-700 shadow-2xl min-h-[368px] flex flex-col items-center justify-center">
+                          {isLoading && (
+                              <div className="text-center">
+                                  <div className="animate-pulse text-blue-400 text-lg">Enhancing Image...</div>
+                                  <p className="text-gray-500 text-sm mt-2">This may take a moment.</p>
+                              </div>
+                          )}
+                          {!isLoading && enhancedImageUrl && (
+                              <ImageComparator 
+                                  enhancedImageUrl={enhancedImageUrl}
+                                  dimensions={enhancedImageDimensions} 
+                              />
+                          )}
+                          {!isLoading && !enhancedImageUrl && (
+                              <div className="text-center text-gray-500">
+                                  <p>Your enhanced image will appear here.</p>
+                              </div>
+                          )}
+                      </div>
+                  </div>
+              </div>
+          </main>
 
-        <footer className="text-center mt-16 text-gray-600 text-sm">
-            <p>Powered by Gemini API</p>
-        </footer>
+          <footer className="text-center mt-16 text-gray-600 text-sm">
+              <p>Powered by Gemini API</p>
+          </footer>
+        </div>
       </div>
-    </div>
+    </PasswordProtection>
   );
 };
 
