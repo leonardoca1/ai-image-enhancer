@@ -29,7 +29,7 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ children }) => 
       setIsAuthenticated(true);
       setError('');
     } else {
-      setError('Password non corretta. Riprova.');
+      setError('Incorrect password. Please try again.');
       setPassword('');
     }
   };
@@ -37,7 +37,7 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ children }) => 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-        <div className="animate-pulse text-blue-400 text-lg">Caricamento...</div>
+        <div className="animate-pulse text-blue-400 text-lg">Loading...</div>
       </div>
     );
   }
@@ -54,7 +54,7 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ children }) => 
                 🔒 AI Image Enhancer
               </h1>
               <p className="text-gray-400 text-sm">
-                Inserisci la password per accedere
+                Enter password to access
               </p>
             </div>
 
@@ -80,12 +80,12 @@ const PasswordProtection: React.FC<PasswordProtectionProps> = ({ children }) => 
                 type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-lg transition-colors duration-200 shadow-lg hover:shadow-blue-500/50"
               >
-                Accedi
+                Enter
               </button>
             </form>
 
             <div className="mt-6 text-center text-xs text-gray-500">
-              <p>La password verrà salvata nel tuo browser</p>
+              <p>Your password will be saved in your browser</p>
             </div>
           </div>
         </div>
